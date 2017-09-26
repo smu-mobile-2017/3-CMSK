@@ -166,7 +166,7 @@ class ActivityViewController: UITableViewController {
 			activityState = .walking
 		} else {
 			print("None of the expected CMMotionActivity variables were true in handleActivityData(data:)")
-			activityState = nil
+			activityState = .unknown
 		}
 	}
 
