@@ -32,8 +32,8 @@
         <!--Work It-->
         <scene sceneID="JbT-eD-tFO">
             <objects>
-                <tableViewController id="Ab3-n1-BC1" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="52" sectionHeaderHeight="18" sectionFooterHeight="18" id="bXE-JU-R1e">
+                <tableViewController id="Ab3-n1-BC1" customClass="ActivityViewController" customModule="Work_It" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="75" sectionHeaderHeight="18" sectionFooterHeight="18" id="bXE-JU-R1e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.050000000000000003" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,6 +51,9 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Cycling" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxD-xu-Cb1">
                                                     <rect key="frame" x="13" y="208.5" width="349" height="36.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="36.5" id="Zoz-hc-hgl"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="25.5"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -66,7 +69,6 @@
                                                 <constraint firstItem="fPh-5J-Ckp" firstAttribute="width" relation="lessThanOrEqual" secondItem="8yS-MI-STY" secondAttribute="width" multiplier="0.5" id="GtE-df-CKk"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="xxD-xu-Cb1" secondAttribute="trailing" constant="5" id="LPU-3A-cC6"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="xxD-xu-Cb1" secondAttribute="bottom" constant="5" id="WNX-l4-rwe"/>
-                                                <constraint firstItem="xxD-xu-Cb1" firstAttribute="top" secondItem="fPh-5J-Ckp" secondAttribute="bottom" constant="8" id="f0U-Hz-Iv3"/>
                                                 <constraint firstItem="xxD-xu-Cb1" firstAttribute="top" secondItem="fPh-5J-Ckp" secondAttribute="bottom" constant="8" id="qFU-dn-Ah0"/>
                                                 <constraint firstItem="xxD-xu-Cb1" firstAttribute="leading" secondItem="8yS-MI-STY" secondAttribute="leadingMargin" constant="5" id="tuz-Hc-7Wv"/>
                                                 <constraint firstItem="fPh-5J-Ckp" firstAttribute="top" secondItem="8yS-MI-STY" secondAttribute="topMargin" constant="5" id="tv3-Cs-O9L"/>
@@ -83,7 +85,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="OMp-Yp-Y8g">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="–" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="OMp-Yp-Y8g">
                                                     <rect key="frame" x="13" y="13" width="349" height="83"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="68"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -120,8 +122,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kr5-h4-WaU">
-                                                    <rect key="frame" x="15" y="13" width="14" height="26.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="–" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kr5-h4-WaU">
+                                                    <rect key="frame" x="15" y="13" width="11.5" height="26.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -148,6 +150,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Work It" id="y62-G0-kRD"/>
+                    <connections>
+                        <outlet property="activityImageView" destination="fPh-5J-Ckp" id="Bwt-dm-n0p"/>
+                        <outlet property="activityLabel" destination="xxD-xu-Cb1" id="xGy-Bj-qLY"/>
+                        <outlet property="stepCountLabel" destination="OMp-Yp-Y8g" id="M8v-Dl-Krj"/>
+                        <outlet property="yesterdayStepCountLabel" destination="kr5-h4-WaU" id="M9o-bE-Dmi"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tUD-jy-wER" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
