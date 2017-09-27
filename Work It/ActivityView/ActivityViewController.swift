@@ -11,6 +11,27 @@ import CoreMotion
 
 enum ActivityState {
 	case unknown, stationary, cycling, running, walking, driving
+	
+	static func from(coreMotionActivity data: CMMotionActivity?) -> ActivityState? {
+		guard let data = data else {
+			return nil
+		}
+		if data.unknown {
+			return .unknown
+		} else if data.stationary {
+			return .stationary
+		} else if data.automotive {
+			return .driving
+		} else if data.cycling {
+			return .cycling
+		} else if data.running {
+			return .running
+		} else if data.walking {
+			return .walking
+		} else {
+			return .unknown
+		}
+	}
 }
 
 class ActivityViewController: UITableViewController {
@@ -56,7 +77,7 @@ class ActivityViewController: UITableViewController {
 			DispatchQueue.main.async {
 				switch activityState {
 				case .unknown:
-					iv.image = UIImage()
+					iv.image = UIImage(named: "activity-unknown")
 					l.text = "Unknown"
 				case .stationary:
 					iv.image = UIImage(named: "activity-stationary")
@@ -103,12 +124,10 @@ class ActivityViewController: UITableViewController {
 		)
 		
 		// Recurring retrieval of motion/activity data (sporadic, based on new data)
-		
 		activityManager.startActivityUpdates(
 			to: OperationQueue.current!,
 			withHandler: handleActivityData(data:)
 		)
-		
 		pedometer.startUpdates(
 			from: startOfToday,
 			withHandler: handlePedometerData(data:error:)
@@ -142,32 +161,13 @@ class ActivityViewController: UITableViewController {
 			print("No data")
 			return
 		}
-		
 		yesterdayStepCount = data.numberOfSteps.intValue
 	}
 	
 	func handleActivityData(data: CMMotionActivity?) {
-		// unknown, stationary, cycling, running, walking, driving
-		guard let data = data else {
-			activityState = nil
-			return
-		}
-		if data.unknown {
-			activityState = .unknown
-		} else if data.stationary {
-			activityState = .stationary
-		} else if data.automotive {
-			activityState = .driving
-		} else if data.cycling {
-			activityState = .cycling
-		} else if data.running {
-			activityState = .running
-		} else if data.walking {
-			activityState = .walking
-		} else {
-			print("None of the expected CMMotionActivity variables were true in handleActivityData(data:)")
-			activityState = .unknown
-		}
+		activityState = ActivityState.from(coreMotionActivity: data)
 	}
+	
+	
 
 }
