@@ -71,7 +71,7 @@
                                                 <constraint firstItem="xxD-xu-Cb1" firstAttribute="trailing" secondItem="8yS-MI-STY" secondAttribute="trailingMargin" constant="5" id="kUh-tC-p75"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.050000000000000003" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.050980392156862744" green="0.050980392156862744" blue="0.050980392156862744" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="140" id="qir-2r-XWe">
@@ -228,19 +228,22 @@
         <!--Step Goal-->
         <scene sceneID="EP1-xc-PvC">
             <objects>
-                <viewController title="Step Goal" id="YMD-5I-ses" sceneMemberID="viewController">
+                <viewController title="Step Goal" id="YMD-5I-ses" customClass="GoalSettingsViewController" customModule="Work_It" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KTW-xL-mK2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No goal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vo1-1E-ux6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="–" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vo1-1E-ux6">
                                 <rect key="frame" x="16" y="320.33333333333331" width="382" height="96"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="80"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="k4F-Qd-Oh1">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1000" minimumValue="1000" maximumValue="100000" stepValue="500" translatesAutoresizingMaskIntoConstraints="NO" id="k4F-Qd-Oh1">
                                 <rect key="frame" x="20" y="462.33333333333331" width="94" height="29"/>
+                                <connections>
+                                    <action selector="didChangeStepperValue:" destination="YMD-5I-ses" eventType="valueChanged" id="EZO-y7-s6C"/>
+                                </connections>
                             </stepper>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K0q-ZS-XLa">
                                 <rect key="frame" x="20" y="670" width="182" height="46"/>
@@ -257,6 +260,9 @@
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didPressClearGoalButton:" destination="YMD-5I-ses" eventType="touchUpInside" id="9N5-nd-Y2b"/>
+                                </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eDD-ZS-7Uw">
                                 <rect key="frame" x="212" y="670" width="182" height="46"/>
@@ -273,6 +279,9 @@
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didPressSaveGoalButton:" destination="YMD-5I-ses" eventType="touchUpInside" id="rz2-KB-bgi"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.050000000000000003" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -293,6 +302,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qZy-Ew-Okk"/>
                     </view>
+                    <connections>
+                        <outlet property="clearGoalButton" destination="K0q-ZS-XLa" id="dqX-HV-8SR"/>
+                        <outlet property="goalLabel" destination="vo1-1E-ux6" id="TW3-0u-Xt7"/>
+                        <outlet property="goalStepper" destination="k4F-Qd-Oh1" id="Lhw-uq-y1h"/>
+                        <outlet property="saveGoalButton" destination="eDD-ZS-7Uw" id="u3T-0a-3pM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7b7-tQ-9jX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

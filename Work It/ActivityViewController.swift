@@ -54,22 +54,7 @@ class ActivityViewController: UITableViewController {
 			DispatchQueue.main.async {
 				self.stepCountLabel.text = text
 			}
-			
-			// set todayGoalLabel and -progressView
-			var goalText: String = "No goal"
-			var goalProgress: Float = 0.0
-			
-			if let goal = GoalManager.shared.stepGoal, let sc = stepCount {
-				let remaining = goal - sc
-				let step = abs(remaining)==1 ? "step" : "steps"
-				
-				goalText = remaining > 0 ? "\(remaining) \(step) to goal" : "\(abs(remaining)) \(step) past goal"
-				goalProgress = min(Float(sc)/Float(goal), 1.0)
-			}
-			DispatchQueue.main.async {
-				self.todayGoalLabel.text = goalText
-				self.todayGoalProgressView.progress = goalProgress
-			}
+			updateGoalUI(withGoal: GoalManager.shared.stepGoal)
 		}
 	}
 	
@@ -109,6 +94,16 @@ class ActivityViewController: UITableViewController {
 		let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		let startOfYesterday: Date = Calendar.current.startOfDay(for: yesterday!)
 		
+		// listen for goal change from GoalManager
+		NotificationCenter.default.addObserver(forName: GoalManager.goalDidChangeKey, object: nil, queue: nil) { notification in
+			print("GoalManager.goalDidChangeKey observer triggered in ActivityViewController")
+			if let newGoal = notification.userInfo?["value"] as? Int {
+				self.updateGoalUI(withGoal: newGoal)
+			} else {
+				self.updateGoalUI(withGoal: nil)
+			}
+		}
+		
 		// Set "Today + Yesterday" steps
 		pedometer.queryPedometerData(
 			from: startOfYesterday,
@@ -135,6 +130,23 @@ class ActivityViewController: UITableViewController {
 			withHandler: handlePedometerData(data:error:)
 		)
     }
+	
+	func updateGoalUI(withGoal goal: Int?) {
+		var goalText: String = "No goal"
+		var goalProgress: Float = 0.0
+		
+		if let goal = goal, let sc = stepCount {
+			let remaining = goal - sc
+			let step = abs(remaining)==1 ? "step" : "steps"
+			
+			goalText = remaining > 0 ? "\(remaining) \(step) to goal" : "\(abs(remaining)) \(step) past goal"
+			goalProgress = min(Float(sc)/Float(goal), 1.0)
+		}
+		DispatchQueue.main.async {
+			self.todayGoalLabel.text = goalText
+			self.todayGoalProgressView.progress = goalProgress
+		}
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

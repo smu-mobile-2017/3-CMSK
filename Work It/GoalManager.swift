@@ -18,6 +18,7 @@ class GoalManager {
 	static var shared: GoalManager = GoalManager()
 	static let recordKey: String = "workItStepRecord"
 	static let goalKey: String = "workItStepGoal"
+	static let goalDidChangeKey: NSNotification.Name = NSNotification.Name(rawValue: "edu.smu.workit.goalDidChange")
 	
 	// When the program starts, we check if yesterday's goal was fulfilled.
 	// We:
@@ -62,6 +63,13 @@ class GoalManager {
 			return goal
 		}
 		set {
+			var data: [AnyHashable: Any] = [:]
+			if let val = newValue { data = ["value": val] }
+			NotificationCenter.default.post(
+				name: GoalManager.goalDidChangeKey,
+				object: self,
+				userInfo: data
+			)
 			if let goal = newValue {
 				defaults.set(goal, forKey: GoalManager.goalKey)
 			} else {
