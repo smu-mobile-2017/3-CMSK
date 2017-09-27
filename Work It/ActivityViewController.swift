@@ -43,7 +43,6 @@ class ActivityViewController: UITableViewController {
 	@IBOutlet weak var todayGoalLabel: UILabel!
 	@IBOutlet weak var todayGoalProgressView: UIProgressView!
 	
-	let pedometer: CMPedometer = CMPedometer()
 	let activityManager: CMMotionActivityManager = CMMotionActivityManager()
 	
 	var stepCount: Int? = nil {
@@ -97,38 +96,31 @@ class ActivityViewController: UITableViewController {
 		// listen for goal change from GoalManager
 		NotificationCenter.default.addObserver(forName: GoalManager.goalDidChangeKey, object: nil, queue: nil) { notification in
 			print("GoalManager.goalDidChangeKey observer triggered in ActivityViewController")
-			if let newGoal = notification.userInfo?["value"] as? Int {
-				self.updateGoalUI(withGoal: newGoal)
-			} else {
-				self.updateGoalUI(withGoal: nil)
-			}
+			let newGoal = notification.userInfo?["value"] as? Int
+			self.updateGoalUI(withGoal: newGoal)
 		}
 		
 		// Set "Today + Yesterday" steps
-		pedometer.queryPedometerData(
-			from: startOfYesterday,
-			to: Date(),
-			withHandler: handleYesterdayPedometerData(data:error:)
-		)
+		GoalManager.shared.getPedometerData(from: startOfYesterday, to: Date()) { data in
+			guard let stepCount = data?.numberOfSteps.intValue else { return }
+			self.yesterdayStepCount = stepCount
+		}
 		
 		// Initial retrieval of motion/activity data
-		handleActivityData(data: nil)
-		
-		pedometer.queryPedometerData(
-			from: startOfToday,
-			to: Date(),
-			withHandler: handlePedometerData(data:error:)
-		)
+		self.activityState = .unknown
+		GoalManager.shared.getPedometerData(forDay: Date()) { data in
+			guard let stepCount = data?.numberOfSteps.intValue else { return }
+			self.stepCount = stepCount
+		}
 		
 		// Recurring retrieval of motion/activity data (sporadic, based on new data)
-		activityManager.startActivityUpdates(
-			to: OperationQueue.current!,
-			withHandler: handleActivityData(data:)
-		)
-		pedometer.startUpdates(
-			from: startOfToday,
-			withHandler: handlePedometerData(data:error:)
-		)
+		activityManager.startActivityUpdates(to: OperationQueue.current!) { data in
+			self.activityState = ActivityState.from(coreMotionActivity: data)
+		}
+		GoalManager.shared.pedometer.startUpdates(from: startOfToday) { data, error in
+			guard let stepCount = data?.numberOfSteps.intValue else { return }
+			self.stepCount = stepCount
+		}
     }
 	
 	func updateGoalUI(withGoal goal: Int?) {
@@ -153,19 +145,6 @@ class ActivityViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 	
-	func handlePedometerData(data: CMPedometerData?, error: Error?) {
-		if let error = error {
-			print("CoreMotion Error: \(error)")
-			return
-		}
-		guard let data = data else {
-			print("No data")
-			return
-		}
-		
-		stepCount = data.numberOfSteps.intValue
-	}
-	
 	func handleYesterdayPedometerData(data: CMPedometerData?, error: Error?) {
 		if let error = error {
 			print("CoreMotion Error: \(error)")
@@ -176,10 +155,6 @@ class ActivityViewController: UITableViewController {
 			return
 		}
 		yesterdayStepCount = data.numberOfSteps.intValue
-	}
-	
-	func handleActivityData(data: CMMotionActivity?) {
-		activityState = ActivityState.from(coreMotionActivity: data)
 	}
 	
 	func imageAndText(for activityState: ActivityState) -> (UIImage?, String) {
