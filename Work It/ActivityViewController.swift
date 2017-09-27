@@ -15,8 +15,12 @@ class ActivityViewController: UITableViewController {
 	@IBOutlet weak var activityLabel: UILabel!
 	@IBOutlet weak var stepCountLabel: UILabel!
 	@IBOutlet weak var yesterdayStepCountLabel: UILabel!
+	
 	@IBOutlet weak var todayGoalLabel: UILabel!
 	@IBOutlet weak var todayGoalProgressView: UIProgressView!
+	
+	@IBOutlet weak var yesterdayGoalLabel: UILabel!
+	@IBOutlet weak var yesterdayProgressView: UIProgressView!
 	
 	@IBOutlet weak var gameButtonCell: UITableViewCell!
 	@IBOutlet weak var gameButtonLabel: UILabel!
@@ -68,8 +72,7 @@ class ActivityViewController: UITableViewController {
 		
 		let startOfToday: Date = Calendar.current.startOfDay(for: Date())
 		
-		let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-		let startOfYesterday: Date = Calendar.current.startOfDay(for: yesterday!)
+		let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
 		
 		// listen for goal change from GoalManager
 		NotificationCenter.default.addObserver(forName: GoalManager.goalDidChangeKey, object: nil, queue: nil) { notification in
@@ -84,8 +87,10 @@ class ActivityViewController: UITableViewController {
 			self.updatePassedUI(withStatus: newPassed)
 		}
 		
-		// Set "Today + Yesterday" steps
-		GoalManager.shared.getPedometerData(from: startOfYesterday, to: Date()) { data in
+		GoalManager.shared.checkIfPassedGoalYesterday()
+		
+		// Set yesterdays steps
+		GoalManager.shared.getPedometerData(forDay: yesterday) { data in
 			guard let stepCount = data?.numberOfSteps.intValue else { return }
 			self.yesterdayStepCount = stepCount
 		}
@@ -107,23 +112,37 @@ class ActivityViewController: UITableViewController {
 		}
     }
 	
+	func getTextAndProgress(forSteps steps: Int?, andGoal goal: Int?) -> (String,Float) {
+		var goalText: String = "No goal"
+		var goalProgress: Float = 0.0
+		
+		if let goal = goal, let steps = steps {
+			let remaining = goal - steps
+			let stepWord = abs(remaining)==1 ? "step" : "steps"
+			
+			goalText = remaining > 0 ? "\(remaining) \(stepWord) to goal" : "\(abs(remaining)) \(stepWord) past goal"
+			goalProgress = min(Float(steps)/Float(goal),1.0)
+		}
+		return (goalText,goalProgress)
+	}
+	
 	func updateGoalUI(withGoal goal: Int?) {
 		// Update the "Today's Goal" number
 		// and the progress bar.
 		
-		var goalText: String = "No goal"
-		var goalProgress: Float = 0.0
-		
-		if let goal = goal, let sc = stepCount {
-			let remaining = goal - sc
-			let step = abs(remaining)==1 ? "step" : "steps"
-			
-			goalText = remaining > 0 ? "\(remaining) \(step) to goal" : "\(abs(remaining)) \(step) past goal"
-			goalProgress = min(Float(sc)/Float(goal), 1.0)
-		}
+		let (tGoalText,tGoalProgress) = getTextAndProgress(forSteps: stepCount, andGoal: goal)
 		DispatchQueue.main.async {
-			self.todayGoalLabel.text = goalText
-			self.todayGoalProgressView.progress = goalProgress
+			self.todayGoalLabel.text = tGoalText
+			self.todayGoalProgressView.progress = tGoalProgress
+		}
+		
+		// Update the "Yesterday's Goal" number
+		// and the progress bar.
+		
+		let (yGoalText,yGoalProgress) = getTextAndProgress(forSteps: yesterdayStepCount, andGoal: goal)
+		DispatchQueue.main.async {
+			self.yesterdayGoalLabel.text = yGoalText
+			self.yesterdayProgressView.progress = yGoalProgress
 		}
 	}
 	

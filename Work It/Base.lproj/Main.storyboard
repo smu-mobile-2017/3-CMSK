@@ -93,7 +93,7 @@
                                                     <color key="textColor" white="1" alpha="0.5955425941780822" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="252" text="TODAY+YESTERDAY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EJQ-0r-Xbk">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="252" text="STEPS YESTERDAY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EJQ-0r-Xbk">
                                                     <rect key="frame" x="192.66666666666663" y="105" width="169.33333333333337" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.5955425942" colorSpace="calibratedWhite"/>
@@ -173,10 +173,82 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="68K-bg-N8P">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="80" id="b0N-aR-frH" userLabel="Yesterday's Goal">
+                                        <rect key="frame" x="0.0" y="477" width="375" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b0N-aR-frH" id="SYw-QZ-NJ1">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" text="–" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjB-fF-loL">
+                                                    <rect key="frame" x="15" y="13" width="241" height="26.666666666666664"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="255" insetsLayoutMarginsFromSafeArea="NO" text="YESTERDAY" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPA-xR-p7T">
+                                                    <rect key="frame" x="266" y="18" width="94" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="0.59591716610000001" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cTp-jX-Irn">
+                                                    <rect key="frame" x="15" y="57" width="345" height="2"/>
+                                                    <color key="progressTintColor" red="0.85098039219999999" green="0.46080454284573025" blue="0.08834369468721244" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="trackTintColor" white="0.17000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </progressView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="WPA-xR-p7T" firstAttribute="top" secondItem="SYw-QZ-NJ1" secondAttribute="topMargin" constant="10" id="J9P-SK-AEE"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="cTp-jX-Irn" secondAttribute="trailing" constant="7" id="Lid-xB-RGr"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="WPA-xR-p7T" secondAttribute="trailing" constant="7" id="YLd-S7-7Se"/>
+                                                <constraint firstItem="WPA-xR-p7T" firstAttribute="leading" secondItem="jjB-fF-loL" secondAttribute="trailing" constant="10" id="eok-Ul-Ttb"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="cTp-jX-Irn" secondAttribute="bottom" constant="13" id="grd-07-PXD"/>
+                                                <constraint firstItem="jjB-fF-loL" firstAttribute="top" secondItem="SYw-QZ-NJ1" secondAttribute="topMargin" constant="5" id="hxM-Zg-Psq"/>
+                                                <constraint firstItem="cTp-jX-Irn" firstAttribute="top" secondItem="jjB-fF-loL" secondAttribute="bottom" constant="17" id="kwU-x4-H7S"/>
+                                                <constraint firstItem="jjB-fF-loL" firstAttribute="leading" secondItem="SYw-QZ-NJ1" secondAttribute="leadingMargin" constant="7" id="rlC-jN-6m4"/>
+                                                <constraint firstItem="cTp-jX-Irn" firstAttribute="leading" secondItem="SYw-QZ-NJ1" secondAttribute="leadingMargin" constant="7" id="vR5-ZZ-Pkx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.080000000000000002" alpha="1" colorSpace="calibratedWhite"/>
+                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="75" id="cvF-db-2BX" userLabel="Game Button">
+                                        <rect key="frame" x="0.0" y="557" width="375" height="75"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cvF-db-2BX" id="bif-YR-rlX">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="75"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="–" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBD-ha-ZD2">
+                                                    <rect key="frame" x="15" y="9.6666666666666679" width="319" height="55.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="jBD-ha-ZD2" secondAttribute="bottom" constant="2" id="AjQ-8F-Upd"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="jBD-ha-ZD2" secondAttribute="trailing" id="JqS-sq-hIa"/>
+                                                <constraint firstItem="jBD-ha-ZD2" firstAttribute="leading" secondItem="bif-YR-rlX" secondAttribute="leadingMargin" constant="7" id="ceW-Lv-fgA"/>
+                                                <constraint firstItem="jBD-ha-ZD2" firstAttribute="leading" secondItem="bif-YR-rlX" secondAttribute="leadingMargin" constant="7" id="goG-Jl-eIB"/>
+                                                <constraint firstItem="jBD-ha-ZD2" firstAttribute="top" secondItem="bif-YR-rlX" secondAttribute="topMargin" constant="2" id="ji6-gb-zV5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.080000000000000002" alpha="1" colorSpace="calibratedWhite"/>
+                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <segue destination="O9u-PF-ROd" kind="show" id="tc8-Gm-cnH"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection id="B0p-U6-zIe">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="52" id="BRN-eQ-JyH" userLabel="Set Goal">
-                                        <rect key="frame" x="0.0" y="477" width="375" height="52"/>
+                                        <rect key="frame" x="0.0" y="668" width="375" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BRN-eQ-JyH" id="aMd-3x-LdF">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="52"/>
@@ -202,34 +274,6 @@
                                             <segue destination="YMD-5I-ses" kind="show" id="Dxi-4T-YmE"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="75" id="cvF-db-2BX" userLabel="Game Button">
-                                        <rect key="frame" x="0.0" y="529" width="375" height="75"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cvF-db-2BX" id="bif-YR-rlX">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="75"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="You made your goal yesterday! Play a bonus game" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBD-ha-ZD2">
-                                                    <rect key="frame" x="15" y="9.6666666666666679" width="319" height="55.333333333333329"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="jBD-ha-ZD2" secondAttribute="bottom" constant="2" id="AjQ-8F-Upd"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="jBD-ha-ZD2" secondAttribute="trailing" id="JqS-sq-hIa"/>
-                                                <constraint firstItem="jBD-ha-ZD2" firstAttribute="leading" secondItem="bif-YR-rlX" secondAttribute="leadingMargin" constant="7" id="ceW-Lv-fgA"/>
-                                                <constraint firstItem="jBD-ha-ZD2" firstAttribute="leading" secondItem="bif-YR-rlX" secondAttribute="leadingMargin" constant="7" id="goG-Jl-eIB"/>
-                                                <constraint firstItem="jBD-ha-ZD2" firstAttribute="top" secondItem="bif-YR-rlX" secondAttribute="topMargin" constant="2" id="ji6-gb-zV5"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.080000000000000002" alpha="1" colorSpace="calibratedWhite"/>
-                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <segue destination="O9u-PF-ROd" kind="show" id="tc8-Gm-cnH"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -248,6 +292,8 @@
                         <outlet property="stepCountLabel" destination="OMp-Yp-Y8g" id="M8v-Dl-Krj"/>
                         <outlet property="todayGoalLabel" destination="7Dw-x5-Xai" id="B9E-7e-0za"/>
                         <outlet property="todayGoalProgressView" destination="NOZ-g9-9Ic" id="dnS-ff-yeZ"/>
+                        <outlet property="yesterdayGoalLabel" destination="jjB-fF-loL" id="cvx-8j-4mE"/>
+                        <outlet property="yesterdayProgressView" destination="cTp-jX-Irn" id="Z8b-y8-lgk"/>
                         <outlet property="yesterdayStepCountLabel" destination="fB6-vr-hTF" id="qtL-OO-Axw"/>
                     </connections>
                 </tableViewController>
