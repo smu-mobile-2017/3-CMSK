@@ -9,31 +9,6 @@
 import UIKit
 import CoreMotion
 
-enum ActivityState {
-	case unknown, stationary, cycling, running, walking, driving
-	
-	static func from(coreMotionActivity data: CMMotionActivity?) -> ActivityState? {
-		guard let data = data else {
-			return nil
-		}
-		if data.unknown {
-			return .unknown
-		} else if data.stationary {
-			return .stationary
-		} else if data.automotive {
-			return .driving
-		} else if data.cycling {
-			return .cycling
-		} else if data.running {
-			return .running
-		} else if data.walking {
-			return .walking
-		} else {
-			return .unknown
-		}
-	}
-}
-
 class ActivityViewController: UITableViewController {
 
 	@IBOutlet weak var activityImageView: UIImageView!
@@ -43,7 +18,10 @@ class ActivityViewController: UITableViewController {
 	@IBOutlet weak var todayGoalLabel: UILabel!
 	@IBOutlet weak var todayGoalProgressView: UIProgressView!
 	
-	let activityManager: CMMotionActivityManager = CMMotionActivityManager()
+	@IBOutlet weak var gameButtonCell: UITableViewCell!
+	@IBOutlet weak var gameButtonLabel: UILabel!
+	
+	lazy var activityManager: CMMotionActivityManager = CMMotionActivityManager()
 	
 	var stepCount: Int? = nil {
 		didSet {
@@ -124,6 +102,9 @@ class ActivityViewController: UITableViewController {
     }
 	
 	func updateGoalUI(withGoal goal: Int?) {
+		// Update the "Today's Goal" number
+		// and the progress bar.
+		
 		var goalText: String = "No goal"
 		var goalProgress: Float = 0.0
 		
@@ -137,6 +118,24 @@ class ActivityViewController: UITableViewController {
 		DispatchQueue.main.async {
 			self.todayGoalLabel.text = goalText
 			self.todayGoalProgressView.progress = goalProgress
+		}
+		
+		// Update the button that unlocks the game if
+		// you've made your goal
+		
+		var gameText = ""
+		var enabled = false
+		if GoalManager.shared.passedGoalYesterday {
+			gameText = "You made your goal yesterday! Play a bonus game"
+			enabled = true
+		} else {
+			gameText = "You'll get a reward when you beat your goal"
+			enabled = false
+		}
+		DispatchQueue.main.async {
+			self.gameButtonLabel.text = gameText
+			self.gameButtonCell.isUserInteractionEnabled = enabled
+			self.gameButtonLabel.isEnabled = enabled
 		}
 	}
 

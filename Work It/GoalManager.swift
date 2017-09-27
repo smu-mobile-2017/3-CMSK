@@ -15,7 +15,7 @@ class GoalManager {
 	static let goalKey: String = "workItStepGoal"
 	static let goalDidChangeKey: NSNotification.Name = NSNotification.Name(rawValue: "edu.smu.workit.goalDidChange")
 	
-	let pedometer: CMPedometer = CMPedometer()
+	lazy var pedometer: CMPedometer = CMPedometer()
 	
 	// When the program starts, we check if yesterday's goal was fulfilled.
 	// We:
@@ -26,7 +26,7 @@ class GoalManager {
 	//     - marking it 'false' otherwise.
 	// (4) show the game if the entry is true.
 	
-	let defaults: UserDefaults = UserDefaults.standard
+	lazy var defaults: UserDefaults = UserDefaults.standard
 	
 	// Represents the number of steps from yesterday, and whether they passed
 	// the goal at the time. Erased if the date does not correspond to yesterday
