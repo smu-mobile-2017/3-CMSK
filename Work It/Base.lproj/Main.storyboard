@@ -175,7 +175,7 @@
                             </tableViewSection>
                             <tableViewSection id="B0p-U6-zIe">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="52" id="BRN-eQ-JyH">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="52" id="BRN-eQ-JyH" userLabel="Set Goal">
                                         <rect key="frame" x="0.0" y="477" width="375" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BRN-eQ-JyH" id="aMd-3x-LdF">
@@ -199,18 +199,18 @@
                                         <color key="backgroundColor" white="0.080000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
-                                            <segue destination="YMD-5I-ses" kind="show" id="7ld-O6-69r"/>
+                                            <segue destination="YMD-5I-ses" kind="show" id="Dxi-4T-YmE"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="72" id="cvF-db-2BX">
-                                        <rect key="frame" x="0.0" y="529" width="375" height="72"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="75" id="cvF-db-2BX" userLabel="Game Button">
+                                        <rect key="frame" x="0.0" y="529" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cvF-db-2BX" id="bif-YR-rlX">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="72"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="75"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="You made your goal yesterday! Play a bonus game" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBD-ha-ZD2">
-                                                    <rect key="frame" x="15" y="9.6666666666666643" width="319" height="53"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="You made your goal yesterday! Play a bonus game" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBD-ha-ZD2">
+                                                    <rect key="frame" x="15" y="9.6666666666666679" width="319" height="55.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -243,7 +243,7 @@
                     <connections>
                         <outlet property="activityImageView" destination="fPh-5J-Ckp" id="Bwt-dm-n0p"/>
                         <outlet property="activityLabel" destination="xxD-xu-Cb1" id="xGy-Bj-qLY"/>
-                        <outlet property="gameButtonCell" destination="BRN-eQ-JyH" id="vgb-fr-A2v"/>
+                        <outlet property="gameButtonCell" destination="cvF-db-2BX" id="xSj-Kz-JPF"/>
                         <outlet property="gameButtonLabel" destination="jBD-ha-ZD2" id="RFO-yS-w4K"/>
                         <outlet property="stepCountLabel" destination="OMp-Yp-Y8g" id="M8v-Dl-Krj"/>
                         <outlet property="todayGoalLabel" destination="7Dw-x5-Xai" id="B9E-7e-0za"/>
@@ -305,10 +305,10 @@
                                 </connections>
                             </stepper>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K0q-ZS-XLa">
-                                <rect key="frame" x="20" y="670" width="182" height="46"/>
+                                <rect key="frame" x="20" y="656" width="182" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="GTY-fo-C1g"/>
+                                    <constraint firstAttribute="height" constant="60" id="GTY-fo-C1g"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                                 <inset key="titleEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
@@ -324,10 +324,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eDD-ZS-7Uw">
-                                <rect key="frame" x="212" y="670" width="182" height="46"/>
+                                <rect key="frame" x="212" y="656" width="182" height="60"/>
                                 <color key="backgroundColor" red="0.26300097325264593" green="0.7509369894222222" blue="0.34605391211880143" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="agg-AJ-Tgq"/>
+                                    <constraint firstAttribute="height" constant="60" id="agg-AJ-Tgq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                                 <inset key="titleEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>

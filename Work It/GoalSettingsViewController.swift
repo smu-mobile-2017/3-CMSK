@@ -69,6 +69,7 @@ class GoalSettingsViewController: UIViewController {
 	}
 	
 	@IBAction func didPressSaveGoalButton(_ sender: Any) {
+		print("**********\nSaving step goal (\(unsavedStepGoal))\n**********")
 		GoalManager.shared.stepGoal = unsavedStepGoal
 		DispatchQueue.main.async {
 			self.saveGoalButton.isEnabled = false

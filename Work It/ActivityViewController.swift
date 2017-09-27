@@ -73,9 +73,15 @@ class ActivityViewController: UITableViewController {
 		
 		// listen for goal change from GoalManager
 		NotificationCenter.default.addObserver(forName: GoalManager.goalDidChangeKey, object: nil, queue: nil) { notification in
-			print("GoalManager.goalDidChangeKey observer triggered in ActivityViewController")
+			print("GoalManager.goalDidChangeKey observer triggered")
 			let newGoal = notification.userInfo?["value"] as? Int
 			self.updateGoalUI(withGoal: newGoal)
+		}
+		
+		NotificationCenter.default.addObserver(forName: GoalManager.passedGoalYesterdayDidChangeKey, object: nil, queue: nil) { notification in
+			print("GoalManager.passedGoalYesterdayDidChangeKey observer triggered")
+			let newPassed = notification.userInfo?["value"] as? Bool
+			self.updatePassedUI(withStatus: newPassed)
 		}
 		
 		// Set "Today + Yesterday" steps
@@ -119,23 +125,30 @@ class ActivityViewController: UITableViewController {
 			self.todayGoalLabel.text = goalText
 			self.todayGoalProgressView.progress = goalProgress
 		}
-		
+	}
+	
+	func updatePassedUI(withStatus passed: Bool?) {
 		// Update the button that unlocks the game if
 		// you've made your goal
-		
+		guard let passed = passed else {
+			print("nil status passed as parameter in ActivityViewController.updatePassedUI.")
+			return
+		}
 		var gameText = ""
 		var enabled = false
-		if GoalManager.shared.passedGoalYesterday {
+		if passed {
 			gameText = "You made your goal yesterday! Play a bonus game"
 			enabled = true
 		} else {
-			gameText = "You'll get a reward when you beat your goal"
+			gameText = "You'll get a reward whenver yesterday's steps beat your goal"
 			enabled = false
 		}
 		DispatchQueue.main.async {
-			self.gameButtonLabel.text = gameText
 			self.gameButtonCell.isUserInteractionEnabled = enabled
+			self.gameButtonCell.accessoryType = enabled ? .disclosureIndicator : .none
+			self.gameButtonCell.selectionStyle = enabled ? .default : .none
 			self.gameButtonLabel.isEnabled = enabled
+			self.gameButtonLabel.text = gameText
 		}
 	}
 
