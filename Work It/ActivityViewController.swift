@@ -40,16 +40,35 @@ class ActivityViewController: UITableViewController {
 	@IBOutlet weak var activityLabel: UILabel!
 	@IBOutlet weak var stepCountLabel: UILabel!
 	@IBOutlet weak var yesterdayStepCountLabel: UILabel!
+	@IBOutlet weak var todayGoalLabel: UILabel!
+	@IBOutlet weak var todayGoalProgressView: UIProgressView!
 	
 	let pedometer: CMPedometer = CMPedometer()
 	let activityManager: CMMotionActivityManager = CMMotionActivityManager()
 	
 	var stepCount: Int? = nil {
 		didSet {
-			var text = "–"
+			// set stepCountLabel
+			var text: String = "–"
 			if let sc = stepCount { text = "\(sc)" }
 			DispatchQueue.main.async {
 				self.stepCountLabel.text = text
+			}
+			
+			// set todayGoalLabel and -progressView
+			var goalText: String = "No goal"
+			var goalProgress: Float = 0.0
+			
+			if let goal = GoalManager.shared.stepGoal, let sc = stepCount {
+				let remaining = goal - sc
+				let step = abs(remaining)==1 ? "step" : "steps"
+				
+				goalText = remaining > 0 ? "\(remaining) \(step) to goal" : "\(abs(remaining)) \(step) past goal"
+				goalProgress = min(Float(sc)/Float(goal), 1.0)
+			}
+			DispatchQueue.main.async {
+				self.todayGoalLabel.text = goalText
+				self.todayGoalProgressView.progress = goalProgress
 			}
 		}
 	}
@@ -75,26 +94,9 @@ class ActivityViewController: UITableViewController {
 				return
 			}
 			DispatchQueue.main.async {
-				switch activityState {
-				case .unknown:
-					iv.image = UIImage(named: "activity-unknown")
-					l.text = "Unknown"
-				case .stationary:
-					iv.image = UIImage(named: "activity-stationary")
-					l.text = "Stationary"
-				case .cycling:
-					iv.image = UIImage(named: "activity-cycling")
-					l.text = "Cycling"
-				case .running:
-					iv.image = UIImage(named: "activity-running")
-					l.text = "Running"
-				case .walking:
-					iv.image = UIImage(named: "activity-walking")
-					l.text = "Walking"
-				case .driving:
-					iv.image = UIImage(named: "activity-driving")
-					l.text = "Driving"
-				}
+				let (image,text) = self.imageAndText(for: activityState)
+				iv.image = image
+				l.text = text
 			}
 		}
 	}
@@ -168,6 +170,21 @@ class ActivityViewController: UITableViewController {
 		activityState = ActivityState.from(coreMotionActivity: data)
 	}
 	
-	
+	func imageAndText(for activityState: ActivityState) -> (UIImage?, String) {
+		switch activityState {
+		case .unknown:
+			return (UIImage(named: "activity-unknown"), "Unknown")
+		case .stationary:
+			return (UIImage(named: "activity-stationary"), "Stationary")
+		case .cycling:
+			return (UIImage(named: "activity-cycling"), "Cycling")
+		case .running:
+			return  (UIImage(named: "activity-running"), "Running")
+		case .walking:
+			return (UIImage(named: "activity-walking"), "Walking")
+		case .driving:
+			return (UIImage(named: "activity-driving"), "Driving")
+		}
+	}
 
 }
