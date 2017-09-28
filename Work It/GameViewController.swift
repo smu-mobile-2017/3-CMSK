@@ -16,6 +16,8 @@ class GameViewController: UIViewController {
 	
 	lazy var motionManager = CMMotionManager()
 	var paddle: SKSpriteNode!
+    
+    var paddleColor: UIColor?
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +28,8 @@ class GameViewController: UIViewController {
 		
 		paddle = skView.scene?.childNode(withName: "paddle") as? SKSpriteNode
         
-        paddle.color = SKColor.blue
+        guard let color = paddleColor else {return}
+        paddle.color = color
 		
 		motionManager.accelerometerUpdateInterval = 0.05
 		motionManager.startAccelerometerUpdates(to: .main, withHandler: handleAccelerometerData(data:error:))

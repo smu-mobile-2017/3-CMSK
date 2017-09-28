@@ -24,7 +24,15 @@ class ColorPurchaseViewController: UIViewController {
     @IBOutlet weak var pinkButton: UIButton!
     @IBOutlet weak var purpleButton: UIButton!
     
-    var colorList: [String] = ["Red","Yellow","Orange","Green","Cyan","Blue","Pink","Purple"]
+    var nameColor = ["Red": UIColor.red,
+                     "Yellow": UIColor.yellow,
+                     "Orange": UIColor.orange,
+                     "Green":UIColor.green,
+                     "Cyan":UIColor.cyan,
+                     "Blue":UIColor.blue,
+                     "Pink":UIColor.magenta,
+                     "Purple":UIColor.purple,
+                     "White":UIColor.white]
 
     @IBOutlet weak var playButton: UIButton!
     
@@ -38,40 +46,14 @@ class ColorPurchaseViewController: UIViewController {
         }
     }
     
-    var color: String? = nil {
+    var color: String? =  "White" {
         didSet {
-            var text = "None"
+            var text = "White"
             if let sc = color{ text = "\(sc)"}
             DispatchQueue.main.async {
                 self.selectedColor.text = text;
-                switch text {
-                case self.colorList[0]:
-                    self.selectedColor.textColor = UIColor.red
-                    break;
-                case self.colorList[1]:
-                    self.selectedColor.textColor = UIColor.yellow
-                    break;
-                case self.colorList[2]:
-                    self.selectedColor.textColor = UIColor.orange
-                    break;
-                case self.colorList[3]:
-                    self.selectedColor.textColor = UIColor.green
-                    break;
-                case self.colorList[4]:
-                    self.selectedColor.textColor = UIColor.cyan
-                    break;
-                case self.colorList[5]:
-                    self.selectedColor.textColor = UIColor.blue
-                    break;
-                case self.colorList[6]:
-                    self.selectedColor.textColor = UIColor.magenta
-                    break;
-                case self.colorList[7]:
-                    self.selectedColor.textColor = UIColor.purple
-                    break;
-                default:
-                    self.selectedColor.textColor = UIColor.white
-                }
+                guard let s = self.color else { return }
+                self.selectedColor.textColor = self.nameColor[s]
             }
         }
     }
@@ -86,8 +68,6 @@ class ColorPurchaseViewController: UIViewController {
             self.stepCurrency = stepCount
         }
         
-        selectedColor.text = "TEST"
-        
         purpleButton.isUserInteractionEnabled = false;
         pinkButton.isUserInteractionEnabled = false;
         blueButton.isUserInteractionEnabled = false;
@@ -97,24 +77,33 @@ class ColorPurchaseViewController: UIViewController {
         yellowButton.isUserInteractionEnabled = false;
         redButton.isUserInteractionEnabled = false;
         
-        guard let curr = stepCurrency else { return }
-        switch 10001 {
-        case let val where val > 10000:
+        //guard let curr = stepCurrency else {return}
+        let curr = 10001
+        switch curr {
+        case let curr where curr > 10000:
             purpleButton.isUserInteractionEnabled = true;
-        case let val where val > 8000:
+            fallthrough
+        case 8001...10000:
             pinkButton.isUserInteractionEnabled = true;
-        case let val where val > 7000:
+            fallthrough
+        case 7001...8000:
             blueButton.isUserInteractionEnabled = true;
-        case let val where val > 6000:
+            fallthrough
+        case 6001...7000:
             cyanButton.isUserInteractionEnabled = true;
-        case let val where val > 5000:
+            fallthrough
+        case 5001...6000:
             greenButton.isUserInteractionEnabled = true;
-        case let val where val > 4000:
+            fallthrough
+        case 4001...5000:
             orangeButton.isUserInteractionEnabled = true;
-        case let val where val > 3000:
+            fallthrough
+        case 3001...4000:
             yellowButton.isUserInteractionEnabled = true;
-        case let val where val > 2000:
+            fallthrough
+        case 2001...3000:
             redButton.isUserInteractionEnabled = true;
+            fallthrough
         default:
             break;
         }
@@ -127,14 +116,17 @@ class ColorPurchaseViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    /*
-    // MARK: - Navigation
-
+    @IBAction func didPressRedButton(_ sender: Any) {
+        guard let senderView = sender as? UIView,
+            let id = senderView.restorationIdentifier else {return}
+        color = id;
+    }
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        guard let dest = segue.destination as? GameViewController else {return}
+        guard let c = color else {return}
+        dest.paddleColor = nameColor[c]
     }
-    */
 
 }
