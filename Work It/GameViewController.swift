@@ -25,6 +25,8 @@ class GameViewController: UIViewController {
 		skView.scene?.physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0)
 		
 		paddle = skView.scene?.childNode(withName: "paddle") as? SKSpriteNode
+        
+        paddle.color = SKColor.blue
 		
 		motionManager.accelerometerUpdateInterval = 0.05
 		motionManager.startAccelerometerUpdates(to: .main, withHandler: handleAccelerometerData(data:error:))
