@@ -569,17 +569,17 @@
                         <viewLayoutGuide key="safeArea" id="fAf-Rg-fLw"/>
                     </view>
                     <connections>
-                        <outlet property="blueButton" destination="S80-cT-iHc" id="Ikl-Se-o1Y"/>
-                        <outlet property="cyanButton" destination="qG7-Xg-IfU" id="QQ6-2M-6q6"/>
-                        <outlet property="greenButton" destination="Rqe-4s-b69" id="tv5-PM-A0D"/>
-                        <outlet property="orangeButton" destination="O5A-Lb-wO8" id="blG-jy-qZN"/>
-                        <outlet property="pinkButton" destination="5UZ-fW-7vj" id="9Gr-yk-39x"/>
                         <outlet property="playButton" destination="SyJ-IX-dk9" id="VU5-gO-S41"/>
-                        <outlet property="purpleButton" destination="Kep-rd-wv9" id="ypf-OR-1GA"/>
-                        <outlet property="redButton" destination="gOb-7s-DFK" id="7Na-Ir-pJP"/>
                         <outlet property="selectedColor" destination="lTn-m4-JdD" id="flN-f1-6Ix"/>
                         <outlet property="stepCurrencyLabel" destination="Ogj-dY-mJG" id="tKy-pz-PnN"/>
-                        <outlet property="yellowButton" destination="owU-7F-qfy" id="YDd-Gq-ELw"/>
+                        <outletCollection property="colorButton" destination="gOb-7s-DFK" collectionClass="NSMutableArray" id="YB1-AA-dzb"/>
+                        <outletCollection property="colorButton" destination="owU-7F-qfy" collectionClass="NSMutableArray" id="1UF-7Y-seA"/>
+                        <outletCollection property="colorButton" destination="O5A-Lb-wO8" collectionClass="NSMutableArray" id="Boi-AB-KiW"/>
+                        <outletCollection property="colorButton" destination="Rqe-4s-b69" collectionClass="NSMutableArray" id="njC-A6-8TX"/>
+                        <outletCollection property="colorButton" destination="qG7-Xg-IfU" collectionClass="NSMutableArray" id="I3i-4i-mNy"/>
+                        <outletCollection property="colorButton" destination="S80-cT-iHc" collectionClass="NSMutableArray" id="LOa-7O-i1f"/>
+                        <outletCollection property="colorButton" destination="5UZ-fW-7vj" collectionClass="NSMutableArray" id="8BY-3w-ye6"/>
+                        <outletCollection property="colorButton" destination="Kep-rd-wv9" collectionClass="NSMutableArray" id="no5-pQ-GN7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLU-A9-8i1" userLabel="First Responder" sceneMemberID="firstResponder"/>

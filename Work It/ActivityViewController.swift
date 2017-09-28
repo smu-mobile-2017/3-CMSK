@@ -159,8 +159,8 @@ class ActivityViewController: UITableViewController {
 			gameText = "You made your goal yesterday! Play a bonus game"
 			enabled = true
 		} else {
-			gameText = "You'll get a reward whenver yesterday's steps beat your goal"
-			enabled = false
+			gameText = "You'll get a reward whenever yesterday's steps beat your goal"
+			enabled = true //CHANGE BACK TO FALSE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		}
 		DispatchQueue.main.async {
 			self.gameButtonCell.isUserInteractionEnabled = enabled
